@@ -54,10 +54,23 @@ def create_library_of_readings(bible_book_metadata):
         ot_wo_das_hebrew_order,
         library_dir / "ot_wo_david_and_solomon_hebrew_order_chapters.json")
 
+    readings_per_chapter = {}
     fpcr_psalm_readings = {}
     with open(source_dir / "fpcr_psalm_readings.csv", newline="") as csv_file:
-        for readings, reading in enumerate(csv.reader(csv_file), 1):
-            fpcr_psalm_readings[readings] = ["Psalms", reading[0]]
+        for reading_count, reading in enumerate(csv.reader(csv_file), 1):
+            chapter_and_verses = reading[0]
+            fpcr_psalm_readings[reading_count] = ["Psalms", chapter_and_verses]
+            chapter = chapter_and_verses[:chapter_and_verses.find(":")]
+            readings_per_chapter[chapter] = readings_per_chapter.get(
+                chapter, 0) + 1
+
+    # For any reading of an entire Psalm (chapter), eliminate the verse numbers
+    for reading in fpcr_psalm_readings.values():
+        chapter_and_verses = reading[1]
+        chapter = chapter_and_verses[:chapter_and_verses.find(":")]
+        if readings_per_chapter[chapter] == 1:
+            reading[1] = chapter
+
     with open(library_dir / "fpcr_psalm_selections.json", "w") as json_file:
         json.dump(fpcr_psalm_readings, json_file, indent=4)
 
