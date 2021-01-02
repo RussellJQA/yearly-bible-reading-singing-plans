@@ -1,4 +1,4 @@
-## The Psalms of David in Metre
+# The Psalms of David in Metre
 
 *The Psalms of David in Metre* is also known as the the *1650 Scottish Psalter*, or simply "The Scottish Psalmody". It is a metrical version of the Book of Psalms. It translates every verse of the 150 Hebrew Psalms into English rhyme and [meter](meter.md). For twelve of the Psalms, it has two different translations (each in different meter) to choose from.
 
@@ -11,10 +11,12 @@ But I've taken my Psalm portions from Reformation Presbyterian Press's [Comprehe
 [Christ Covenant Reformed Presbyterian Church (CCRPC)](http://www.christcovenantrpc.org/) of Wylie, Texas (USA) has [online recordings of their congregation](http://www.christcovenantrpc.org/audio/psalm-singing/) singing the 312 portions from the *Comprehensive Psalter*. On the same Web page, they also have a .zip file of *Psalter tune MIDI Files*, a .pdf *Index of Psalm Tunes*, and a .pdf *Text of the Scottish Psalter*.
 
 [Charis Development](http://charisdevelopment.com/) publishes free mobile apps for this Psalter:
+
 - [1650 Split Leaf Psalter: Android app](https://play.google.com/store/apps/details?id=com.charisdevelopment.thesixteenfifty&hl=en)
 - [1650 Split Leaf Psalter: iOS app](https://apps.apple.com/us/app/id1198280376)
 
 For every verse of the 150 Psalms, both apps contain:
+
 - The words to 1 version of the Psalm
 - The musical scores and MIDI files of suggested tunes
 

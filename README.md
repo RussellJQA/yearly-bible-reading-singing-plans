@@ -14,9 +14,9 @@ The above printable versions are for the entire plan. But in case someone else i
   - [Download PDF (nt_readings.pdf)](2021/nt_readings.pdf?raw=true)
 - Saturdays with Solomon: Read 1 chapter every Saturday from the writings of Solomon (Proverbs, Ecclesiastes, and Song of Solomon)
   - [Download PDF (solomon_readings.pdf)](2021/solomon_readings.pdf?raw=true)
-- 6-Day Psalm Reading/Singing: Read 1 Psalm portion from the Bible, and sing the corresponding metrical portion from the [Psalms of David in Metre](resources/psalms_of_david_in_metre.md), 6 days per week (Monday through Saturday):
-  - [Download PDF (fpcr_psalm_readings.pdf)](2021/fpcr_psalm_readings.pdf?raw=true)
+- 6-Day Psalm Reading/Singing: Read 1 Psalm portion from the Bible, and sing the corresponding metrical portion from the [Psalms of David in Metre](resources/psalms_of_david_in_metre.md), 6 days per week (Monday through Saturday)
+  - [Download PDF (fpcr\_psalm\_readings.pdf)](2021/fpcr\_psalm\_readings.pdf?raw=true)
 - Daily Old Testament: Read 2 other Old Testament chapters each day (Lord's Day through Saturday)
-  - [Download PDF (ot_wo_david_and_solomon_hebrew_order_ho_readings.pdf)](2021/ot_wo_david_and_solomon_hebrew_order_ho_readings.pdf?raw=true)
+  - [Download PDF (ot\_wo\_david\_and\_solomon\_hebrew\_order\_ho\_readings.pdf)](2021/ot_wo_david_and_solomon_hebrew_order_ho_readings.pdf?raw=true)
 
 For each piece of the plan, I had 1 more day than I had readings to fill it with. So I added some additional readings at the end.
