@@ -11,7 +11,7 @@ with open("template.html", "r", encoding="utf-8") as read_file:
     TEMPLATE_STRING = read_file.read()
 
 
-def markdown_to_html(md_basename, html_basename, title):
+def markdown_to_html(md_basename, html_basename, title, description):
 
     with open(SCRIPT_DIR / f"{md_basename}.md", "r") as read_file:
         html_source = read_file.read()
@@ -27,16 +27,30 @@ def markdown_to_html(md_basename, html_basename, title):
               "w",
               encoding="utf-8",
               newline="") as write_file:
-        output = html_template.substitute(title=title, main_html=main_html)
+        output = html_template.substitute(title=title,
+                                          description=description,
+                                          main_html=main_html)
         write_file.write(output)
 
 
 def create_website(year):
     os.makedirs(GITHUB_PAGES_DIR, exist_ok=True)
-    markdown_to_html("README", "index", "Yearly Bible Reading/Singing Plans")
-    markdown_to_html("meter", "meter", "Meter")
-    markdown_to_html("psalms_of_david_in_metre", "psalms_of_david_in_metre",
-                     "The Psalms of David in Metre")
+    markdown_to_html(
+        "README", "index", "Yearly Bible Reading/Singing Plans",
+        "Yearly Bible Reading/Singing Plans. Starting with 2020, "
+        "has downloadable PDF plan(s) for reading thru the Bible,"
+        " and singing thru the Psalms, in 1 year.")
+    markdown_to_html(
+        "meter", "meter", "Meter",
+        "Info about meter -- patterns of syllables used in English "
+        "poetry and song. Metrical Psalms are often written in Common "
+        "Meter, Short Meter, or Long Meter.")
+    markdown_to_html(
+        "psalms_of_david_in_metre", "psalms_of_david_in_metre",
+        "The Psalms of David in Metre",
+        "Info about printed and online editions -- and mobile apps -- "
+        "of 'The Psalms of David in Metre', a.k.a 'The 1650 Scottish "
+        "Psalter' and 'Scottish Psalmody'.")
 
 
 if __name__ == "__main__":
