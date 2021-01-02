@@ -1,6 +1,6 @@
 # The Psalms of David in Metre
 
-*The Psalms of David in Metre* is also known as the the *1650 Scottish Psalter*, or simply "The Scottish Psalmody". It is a metrical version of the Book of Psalms. It translates every verse of the 150 Hebrew Psalms into English rhyme and [meter](meter.md). For twelve of the Psalms, it has two different translations (each in different meter) to choose from.
+*The Psalms of David in Metre* is also known as the the *1650 Scottish Psalter*, or simply *The Scottish Psalmody*. It is a metrical version of the Book of Psalms. It translates every verse of the 150 Hebrew Psalms into English rhyme and [meter](meter.md). For twelve of the Psalms, it has two different translations (each in different meter) to choose from.
 
 The Free Church of Scotland (Continuing) publishes two music editions of *The Scottish Psalmody*:
 1. in staff notation

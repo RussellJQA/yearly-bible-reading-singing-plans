@@ -1,6 +1,6 @@
 # Meter
 
-Meter is a term for the patterns of syllables used in much (English) poetry and song. Six different metrical patterns are used in the _Psalms of David in Metre_:
+Meter is a term for the patterns of syllables used in much (English) poetry and song (including metrical Psalms). Six different metrical patterns are used in the _Psalms of David in Metre_:
 
 - Common Meter (CM: 8.6.8.6) - a pattern of:
   - 8 syllables for the 1st stanza
