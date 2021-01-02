@@ -1,6 +1,5 @@
 import os
 from pathlib import Path
-import shutil
 import string
 
 import markdown2
@@ -17,6 +16,10 @@ def markdown_to_html(md_basename, html_basename, title):
     with open(SCRIPT_DIR / f"{md_basename}.md", "r") as read_file:
         html_source = read_file.read()
     html_source = html_source.replace(".md", ".html")
+    html_source = html_source.replace(
+        "(2021/",
+        "(https://github.com/RussellJQA/yearly-bible-reading-singing-plans/blob/main/2021/"
+    )
     main_html = markdown2.markdown(html_source)
 
     html_template = string.Template(TEMPLATE_STRING)
@@ -29,13 +32,7 @@ def markdown_to_html(md_basename, html_basename, title):
 
 
 def create_website(year):
-    gh_year_dir = GITHUB_PAGES_DIR / year
-    os.makedirs(gh_year_dir, exist_ok=True)
-    year_dir = SCRIPT_DIR / year
-    pdf_files = year_dir.glob("*.pdf")
-    for pdf_file in pdf_files:
-        shutil.copy(pdf_file, gh_year_dir)
-
+    os.makedirs(GITHUB_PAGES_DIR, exist_ok=True)
     markdown_to_html("README", "index", "Yearly Bible Reading/Singing Plans")
     markdown_to_html("meter", "meter", "Meter")
     markdown_to_html("psalms_of_david_in_metre", "psalms_of_david_in_metre",
