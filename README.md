@@ -1,3 +1,4 @@
+# Yearly Bible Reading and Singing Plans
 
 Each year, my wife and I read through the Bible, and sing through the Book of Psalms. Over the years, we've used a number of different Bible reading plans, and I'd like to try something different in 2021. (And to try something else different in the coming years.) Starting in 2021, I'm including our plans here.
 
