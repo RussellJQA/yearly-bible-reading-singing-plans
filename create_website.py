@@ -29,18 +29,17 @@ def markdown_to_html(md_basename, html_basename, title):
 
 
 def create_website(year):
+    gh_year_dir = GITHUB_PAGES_DIR / year
+    os.makedirs(gh_year_dir, exist_ok=True)
+    year_dir = SCRIPT_DIR / year
+    pdf_files = year_dir.glob("*.pdf")
+    for pdf_file in pdf_files:
+        shutil.copy(pdf_file, gh_year_dir)
+
     markdown_to_html("README", "index", "Yearly Bible Reading/Singing Plans")
     markdown_to_html("meter", "meter", "Meter")
     markdown_to_html("psalms_of_david_in_metre", "psalms_of_david_in_metre",
                      "The Psalms of David in Metre")
-
-    gh_year_dir = GITHUB_PAGES_DIR / year
-    if not Path(gh_year_dir).exists():
-        os.mkdir(gh_year_dir)
-    year_dir = SCRIPT_DIR / year
-    pdf_files = list(year_dir.glob("*.pdf"))
-    for pdf_file in pdf_files:
-        shutil.copy(pdf_file, gh_year_dir)
 
 
 if __name__ == "__main__":
