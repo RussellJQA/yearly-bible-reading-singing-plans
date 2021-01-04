@@ -88,6 +88,11 @@ def create_rtf_and_pdf(year, daily_readings, output_basename, title):
             daily_readings_rtf_fn
         ],
                        cwd=str(year_dir))
+    else:
+        print("\nSince LibreOffice is not installed in the expected location",
+              f"({libreoffice_path})",
+              "you'll need to use another means to convert",
+              f"{daily_readings_rtf_fn} to a .pdf file.")
 
 
 def add_to_bible_readings(daily_readings, readings):
