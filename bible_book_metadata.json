@@ -66,7 +66,7 @@
         "logos_most_common_abbrev": "Judg.",
         "num_chapters": "21",
         "ot_nt": "ot",
-        "author": "",
+        "author": "None",
         "classifications": "historical_book"
     },
     "Ruth": {
@@ -76,7 +76,7 @@
         "logos_most_common_abbrev": "Ruth",
         "num_chapters": "4",
         "ot_nt": "ot",
-        "author": "",
+        "author": "None",
         "classifications": "historical_book"
     },
     "1 Samuel": {
@@ -86,7 +86,7 @@
         "logos_most_common_abbrev": "1 Sam.",
         "num_chapters": "31",
         "ot_nt": "ot",
-        "author": "",
+        "author": "None",
         "classifications": "historical_book"
     },
     "2 Samuel": {
@@ -96,7 +96,7 @@
         "logos_most_common_abbrev": "2 Sam.",
         "num_chapters": "24",
         "ot_nt": "ot",
-        "author": "",
+        "author": "None",
         "classifications": "historical_book"
     },
     "1 Kings": {
@@ -106,7 +106,7 @@
         "logos_most_common_abbrev": "1 Kings",
         "num_chapters": "22",
         "ot_nt": "ot",
-        "author": "",
+        "author": "None",
         "classifications": "historical_book"
     },
     "2 Kings": {
@@ -116,7 +116,7 @@
         "logos_most_common_abbrev": "2 Kings",
         "num_chapters": "25",
         "ot_nt": "ot",
-        "author": "",
+        "author": "None",
         "classifications": "historical_book"
     },
     "1 Chronicles": {
@@ -126,7 +126,7 @@
         "logos_most_common_abbrev": "1 Chron",
         "num_chapters": "29",
         "ot_nt": "ot",
-        "author": "",
+        "author": "None",
         "classifications": "historical_book"
     },
     "2 Chronicles": {
@@ -136,7 +136,7 @@
         "logos_most_common_abbrev": "2 Chron",
         "num_chapters": "36",
         "ot_nt": "ot",
-        "author": "",
+        "author": "None",
         "classifications": "historical_book"
     },
     "Ezra": {
@@ -166,7 +166,7 @@
         "logos_most_common_abbrev": "Est.",
         "num_chapters": "10",
         "ot_nt": "ot",
-        "author": "",
+        "author": "None",
         "classifications": "historical_book"
     },
     "Job": {
@@ -176,7 +176,7 @@
         "logos_most_common_abbrev": "Job",
         "num_chapters": "42",
         "ot_nt": "ot",
-        "author": "",
+        "author": "None",
         "classifications": "wisdom poetry"
     },
     "Psalms": {
@@ -391,7 +391,7 @@
     },
     "Matthew": {
         "book_num": "40",
-        "hebrew_ot_num": "",
+        "hebrew_ot_num": "None",
         "cambridge_abbrev": "Mt.",
         "logos_most_common_abbrev": "Matt.",
         "num_chapters": "28",
@@ -401,7 +401,7 @@
     },
     "Mark": {
         "book_num": "41",
-        "hebrew_ot_num": "",
+        "hebrew_ot_num": "None",
         "cambridge_abbrev": "Mk.",
         "logos_most_common_abbrev": "Mark",
         "num_chapters": "16",
@@ -411,7 +411,7 @@
     },
     "Luke": {
         "book_num": "42",
-        "hebrew_ot_num": "",
+        "hebrew_ot_num": "None",
         "cambridge_abbrev": "Lk.",
         "logos_most_common_abbrev": "Luke",
         "num_chapters": "24",
@@ -421,7 +421,7 @@
     },
     "John": {
         "book_num": "43",
-        "hebrew_ot_num": "",
+        "hebrew_ot_num": "None",
         "cambridge_abbrev": "Jn.",
         "logos_most_common_abbrev": "John",
         "num_chapters": "21",
@@ -431,7 +431,7 @@
     },
     "Acts": {
         "book_num": "44",
-        "hebrew_ot_num": "",
+        "hebrew_ot_num": "None",
         "cambridge_abbrev": "Ac.",
         "logos_most_common_abbrev": "Acts",
         "num_chapters": "28",
@@ -441,7 +441,7 @@
     },
     "Romans": {
         "book_num": "45",
-        "hebrew_ot_num": "",
+        "hebrew_ot_num": "None",
         "cambridge_abbrev": "Ro.",
         "logos_most_common_abbrev": "Rom.",
         "num_chapters": "16",
@@ -451,7 +451,7 @@
     },
     "1 Corinthians": {
         "book_num": "46",
-        "hebrew_ot_num": "",
+        "hebrew_ot_num": "None",
         "cambridge_abbrev": "1 Co.",
         "logos_most_common_abbrev": "1 Cor.",
         "num_chapters": "16",
@@ -461,7 +461,7 @@
     },
     "2 Corinthians": {
         "book_num": "47",
-        "hebrew_ot_num": "",
+        "hebrew_ot_num": "None",
         "cambridge_abbrev": "2 Co.",
         "logos_most_common_abbrev": "2 Cor.",
         "num_chapters": "13",
@@ -471,7 +471,7 @@
     },
     "Galatians": {
         "book_num": "48",
-        "hebrew_ot_num": "",
+        "hebrew_ot_num": "None",
         "cambridge_abbrev": "Ga.",
         "logos_most_common_abbrev": "Gal.",
         "num_chapters": "6",
@@ -481,7 +481,7 @@
     },
     "Ephesians": {
         "book_num": "49",
-        "hebrew_ot_num": "",
+        "hebrew_ot_num": "None",
         "cambridge_abbrev": "Eph.",
         "logos_most_common_abbrev": "Eph.",
         "num_chapters": "6",
@@ -491,7 +491,7 @@
     },
     "Philippians": {
         "book_num": "50",
-        "hebrew_ot_num": "",
+        "hebrew_ot_num": "None",
         "cambridge_abbrev": "Phil.",
         "logos_most_common_abbrev": "Phil.",
         "num_chapters": "4",
@@ -501,7 +501,7 @@
     },
     "Colossians": {
         "book_num": "51",
-        "hebrew_ot_num": "",
+        "hebrew_ot_num": "None",
         "cambridge_abbrev": "Col.",
         "logos_most_common_abbrev": "Col.",
         "num_chapters": "4",
@@ -511,7 +511,7 @@
     },
     "1 Thessalonians": {
         "book_num": "52",
-        "hebrew_ot_num": "",
+        "hebrew_ot_num": "None",
         "cambridge_abbrev": "1 Th.",
         "logos_most_common_abbrev": "1 Thess.",
         "num_chapters": "5",
@@ -521,7 +521,7 @@
     },
     "2 Thessalonians": {
         "book_num": "53",
-        "hebrew_ot_num": "",
+        "hebrew_ot_num": "None",
         "cambridge_abbrev": "2 Th.",
         "logos_most_common_abbrev": "2 Thess.",
         "num_chapters": "3",
@@ -531,7 +531,7 @@
     },
     "1 Timothy": {
         "book_num": "54",
-        "hebrew_ot_num": "",
+        "hebrew_ot_num": "None",
         "cambridge_abbrev": "1 Tim.",
         "logos_most_common_abbrev": "1 Tim.",
         "num_chapters": "6",
@@ -541,7 +541,7 @@
     },
     "2 Timothy": {
         "book_num": "55",
-        "hebrew_ot_num": "",
+        "hebrew_ot_num": "None",
         "cambridge_abbrev": "2 Tim.",
         "logos_most_common_abbrev": "2 Tim.",
         "num_chapters": "4",
@@ -551,7 +551,7 @@
     },
     "Titus": {
         "book_num": "56",
-        "hebrew_ot_num": "",
+        "hebrew_ot_num": "None",
         "cambridge_abbrev": "Tit.",
         "logos_most_common_abbrev": "Titus",
         "num_chapters": "3",
@@ -561,7 +561,7 @@
     },
     "Philemon": {
         "book_num": "57",
-        "hebrew_ot_num": "",
+        "hebrew_ot_num": "None",
         "cambridge_abbrev": "Philem.",
         "logos_most_common_abbrev": "Philem.",
         "num_chapters": "1",
@@ -571,7 +571,7 @@
     },
     "Hebrews": {
         "book_num": "58",
-        "hebrew_ot_num": "",
+        "hebrew_ot_num": "None",
         "cambridge_abbrev": "He.",
         "logos_most_common_abbrev": "Heb.",
         "num_chapters": "13",
@@ -581,7 +581,7 @@
     },
     "James": {
         "book_num": "59",
-        "hebrew_ot_num": "",
+        "hebrew_ot_num": "None",
         "cambridge_abbrev": "Jas.",
         "logos_most_common_abbrev": "James",
         "num_chapters": "5",
@@ -591,7 +591,7 @@
     },
     "1 Peter": {
         "book_num": "60",
-        "hebrew_ot_num": "",
+        "hebrew_ot_num": "None",
         "cambridge_abbrev": "1 Pe.",
         "logos_most_common_abbrev": "1 Pet.",
         "num_chapters": "5",
@@ -601,7 +601,7 @@
     },
     "2 Peter": {
         "book_num": "61",
-        "hebrew_ot_num": "",
+        "hebrew_ot_num": "None",
         "cambridge_abbrev": "2 Pe.",
         "logos_most_common_abbrev": "2 Pet.",
         "num_chapters": "3",
@@ -611,7 +611,7 @@
     },
     "1 John": {
         "book_num": "62",
-        "hebrew_ot_num": "",
+        "hebrew_ot_num": "None",
         "cambridge_abbrev": "1 Jn.",
         "logos_most_common_abbrev": "1 John",
         "num_chapters": "5",
@@ -621,7 +621,7 @@
     },
     "2 John": {
         "book_num": "63",
-        "hebrew_ot_num": "",
+        "hebrew_ot_num": "None",
         "cambridge_abbrev": "2 Jn.",
         "logos_most_common_abbrev": "2 John",
         "num_chapters": "1",
@@ -631,7 +631,7 @@
     },
     "3 John": {
         "book_num": "64",
-        "hebrew_ot_num": "",
+        "hebrew_ot_num": "None",
         "cambridge_abbrev": "3 Jn.",
         "logos_most_common_abbrev": "3 John",
         "num_chapters": "1",
@@ -641,7 +641,7 @@
     },
     "Jude": {
         "book_num": "65",
-        "hebrew_ot_num": "",
+        "hebrew_ot_num": "None",
         "cambridge_abbrev": "Jude",
         "logos_most_common_abbrev": "Jude",
         "num_chapters": "1",
@@ -651,7 +651,7 @@
     },
     "Revelation": {
         "book_num": "66",
-        "hebrew_ot_num": "",
+        "hebrew_ot_num": "None",
         "cambridge_abbrev": "Rev.",
         "logos_most_common_abbrev": "Rev.",
         "num_chapters": "22",
