@@ -1,5 +1,6 @@
 import csv
 import json
+import os
 from pathlib import Path
 """
 columns in bible_book_metadata.csv:
@@ -22,31 +23,35 @@ columns in bible_book_metadata.csv:
 def get_bible_book_metadata():
 
     script_dir = Path(__file__).resolve().parent
-    source_dir = script_dir / "source"
-
+    csv_fn = script_dir / "source" / "bible_book_metadata.csv"
     json_fn = "bible_book_metadata.json"
 
     bible_book_metadata = {}
 
+    rebuild_json = True
     if Path(json_fn).exists():
-        with open(json_fn, "r") as json_file:
-            bible_book_metadata = json.load(json_file)
-    else:
-        with open(source_dir / "bible_book_metadata.csv",
-                  newline="") as csv_file:
+        csv_fn_last_modified = os.stat(csv_fn).st_mtime
+        json_fn_last_modified = os.stat(json_fn).st_mtime
+        rebuild_json = csv_fn_last_modified > json_fn_last_modified
 
+    if rebuild_json:
+        with open(csv_fn, newline="") as csv_file:
             headers = ""
             for book_index, book_row in enumerate(csv.reader(csv_file)):
                 if book_index:
                     book_data = {}
                     for column_index, column in enumerate(book_row):
                         book_data[headers[column_index]] = column
-                    bible_book_metadata[book_data.pop("book_name")] = book_data
+                    book_name = book_data.pop("book_name")
+                    bible_book_metadata[book_name] = book_data
                 else:
                     headers = book_row
 
         with open(json_fn, "w") as json_file:
             json.dump(bible_book_metadata, json_file, indent=4)
+    else:
+        with open(json_fn, "r") as json_file:
+            bible_book_metadata = json.load(json_file)
 
     return bible_book_metadata
 
