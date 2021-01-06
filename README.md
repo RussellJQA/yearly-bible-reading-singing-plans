@@ -1,6 +1,6 @@
 # Yearly Bible Reading and Singing Plans
 
-Each year, my wife and I read through the Bible, and sing through the Book of Psalms. Over the years, we've used a number of different Bible reading plans, and I'd like to try something different in 2021. (And to try something else different in the coming years.) Starting in 2021, I'm including our plans here.
+Each year, my wife and I read through the Bible, and sing through the Book of Psalms. Over the years, we've used a number of different Bible reading plans, and I'd like to try something different in 2021. (And to try something else different in the coming years.) Starting in [2021](##-2021-bible-reading-and-singing-plan), I'm including our plans here.
 
 For those unfamiliar with Psalm singing, I also include:
 
@@ -9,7 +9,8 @@ For those unfamiliar with Psalm singing, I also include:
 - A link to [online recordings of congregational Psalm singing](http://www.christcovenantrpc.org/audio/psalm-singing/). The linked-to Web page also has a .zip file of *Psalter tune MIDI Files*, a .pdf *Index of Psalm Tunes*, and a .pdf *Text of the Scottish Psalter*.
 - Links to mobile ([Android](https://play.google.com/store/apps/details?id=com.charisdevelopment.thesixteenfifty&hl=en) and [iOS](https://apps.apple.com/us/app/id1198280376)) *1650 Scottish Psalter* apps
 
-## 2021 Bible Reading/Singing Plan
+
+## 2021 Bible Reading and Singing Plan
 
 For 2021, I used the [Python](https://www.python.org/) programming language to generate printable versions of a plan of my own:
 
