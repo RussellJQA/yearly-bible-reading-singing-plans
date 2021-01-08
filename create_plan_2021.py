@@ -180,7 +180,11 @@ def get_fpcr_psalm_readings(year):
     return fpcr_psalm_readings
 
 
-def create_rtf_and_pdf(year, daily_readings, output_basename, title):
+def create_rtf_and_pdf(year,
+                       daily_readings,
+                       output_basename,
+                       title,
+                       abbrev_books=False):
     """ Create RTF and PDF files containing the specified readings """
     @dataclass  # See https://realpython.com/python-data-classes/
     class Month:
@@ -206,9 +210,11 @@ def create_rtf_and_pdf(year, daily_readings, output_basename, title):
         passages = []
         for passage in daily_reading:
             book_name = passage[0]
-            book_abbrev = bible_book_abbrevs[book_name]
+            book = bible_book_abbrevs[book_name] if abbrev_books else book_name
+            if book == "Psalms":
+                book = "Psalm"  # References to the Psalms should use "Psalm"
             chapter_and_verse = passage[1]
-            passages.append(f"{book_abbrev} {chapter_and_verse}")
+            passages.append(f"{book} {chapter_and_verse}")
         reading += ", ".join(passages)
         line_or_no_line = "\\line " if month_data[month - 1].readings else ""
         month_data[month - 1].readings += f"{line_or_no_line}\\ql {reading}"
@@ -301,8 +307,11 @@ def create_plan_2021():
     add_to_bible_readings(bible_readings, fpcr_psalm_readings)
     with open(year_dir / "bible_readings.json", "w") as json_file:
         json.dump(bible_readings, json_file, indent=4)
-    create_rtf_and_pdf(YEAR, bible_readings, "bible_readings",
-                       "Daily Bible Reading and Singing")
+    create_rtf_and_pdf(YEAR,
+                       bible_readings,
+                       "bible_readings",
+                       "Daily Bible Reading and Singing",
+                       abbrev_books=True)
 
 
 if __name__ == "__main__":
