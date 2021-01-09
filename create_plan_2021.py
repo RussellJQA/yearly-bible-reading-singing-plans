@@ -6,13 +6,14 @@ from create_rtf_and_pdf import add_to_bible_readings
 from create_rtf_and_pdf import create_rtf_and_pdf
 from get_bible_book_metadata import get_bible_book_metadata
 from create_library_of_readings import create_library_of_readings
+from create_bible_audio_playlist import create_bible_audio_playlist
 
 YEAR = 2021
 THIS_YEAR_START = datetime.date(YEAR, 1, 1)
 DAYS_IN_YEAR = (datetime.date(YEAR + 1, 1, 1) - THIS_YEAR_START).days
 SCRIPT_DIR = Path(__file__).resolve().parent
 LIBRARY_DIR = SCRIPT_DIR / "library"
-year_dir = SCRIPT_DIR / str(YEAR)
+YEAR_DIR = SCRIPT_DIR / str(YEAR)
 
 
 def get_ot_wo_das_ho_readings(year):
@@ -60,9 +61,7 @@ def get_ot_wo_das_ho_readings(year):
     #   quoted or alluded to in Hebrews 1 (the NT reading for the day).
     ot_wo_das_ho_readings["12-31 Fr"] = [["Psalms", "2, 110"]]
 
-    with open(
-            year_dir / "ot_wo_david_and_solomon_hebrew_order_ho_readings.json",
-            "w") as json_file:
+    with open(YEAR_DIR / "ot_wo_das_ho_readings.json", "w") as json_file:
         json.dump(ot_wo_das_ho_readings, json_file, indent=4)
 
     return ot_wo_das_ho_readings
@@ -97,7 +96,7 @@ def get_nt_readings(year):
     # So for Friday, December 31, 2021, add Hebrews 1.
     nt_readings["12-31 Fr"] = [["Hebrews", "1"]]
 
-    with open(year_dir / "nt_readings.json", "w") as json_file:
+    with open(YEAR_DIR / "nt_readings.json", "w") as json_file:
         json.dump(nt_readings, json_file, indent=4)
 
     return nt_readings
@@ -132,7 +131,7 @@ def get_solomon_readings(year):
     # So for Saturday, December 25, 2021, add Song of Solomon 1.
     solomon_readings["12-25 Sa"] = [["Song of Solomon", "1"]]
 
-    with open(year_dir / "solomon_readings.json", "w") as json_file:
+    with open(YEAR_DIR / "solomon_readings.json", "w") as json_file:
         json.dump(solomon_readings, json_file, indent=4)
 
     return solomon_readings
@@ -172,7 +171,7 @@ def get_fpcr_psalm_readings(year):
         "Psalms", "45:1-7, 102:23-28, 104:1-9"
     ]]
 
-    with open(year_dir / "fpcr_psalm_readings.json", "w") as json_file:
+    with open(YEAR_DIR / "fpcr_psalm_readings.json", "w") as json_file:
         json.dump(fpcr_psalm_readings, json_file, indent=4)
 
     return fpcr_psalm_readings
@@ -180,24 +179,34 @@ def get_fpcr_psalm_readings(year):
 
 def create_plan_2021():
 
-    create_library_of_readings(get_bible_book_metadata())
+    bible_book_metadata = get_bible_book_metadata()
+
+    create_library_of_readings(bible_book_metadata)
 
     ot_wo_das_ho_readings = get_ot_wo_das_ho_readings(YEAR)
+    create_bible_audio_playlist(YEAR_DIR, bible_book_metadata,
+                                ot_wo_das_ho_readings,
+                                "ot_wo_das_ho_playlists")
     create_rtf_and_pdf(
-        YEAR, ot_wo_das_ho_readings,
-        "ot_wo_david_and_solomon_hebrew_order_ho_readings",
+        YEAR, ot_wo_das_ho_readings, "ot_wo_das_ho_readings",
         "Reading the Old Testament (without the Writings of David and "
         "Solomon), in Hebrew OT order")
 
     nt_readings = get_nt_readings(YEAR)
+    create_bible_audio_playlist(YEAR_DIR, bible_book_metadata, nt_readings,
+                                "nt_playlists")
     create_rtf_and_pdf(YEAR, nt_readings, "nt_readings",
                        "Weekday New Testament Reading")
 
     solomon_readings = get_solomon_readings(YEAR)
+    create_bible_audio_playlist(YEAR_DIR, bible_book_metadata,
+                                solomon_readings, "solomon_playlists")
     create_rtf_and_pdf(YEAR, solomon_readings, "solomon_readings",
                        "Reading the Writings of Solomon on Saturdays")
 
     fpcr_psalm_readings = get_fpcr_psalm_readings(YEAR)
+    create_bible_audio_playlist(YEAR_DIR, bible_book_metadata,
+                                fpcr_psalm_readings, "fpcr_psalm_playlists")
     create_rtf_and_pdf(YEAR, fpcr_psalm_readings, "fpcr_psalm_readings",
                        "Reading and Singing Psalm Selections Six Days a Week")
 
@@ -206,8 +215,10 @@ def create_plan_2021():
     add_to_bible_readings(bible_readings, nt_readings)
     add_to_bible_readings(bible_readings, solomon_readings)
     add_to_bible_readings(bible_readings, fpcr_psalm_readings)
-    with open(year_dir / "bible_readings.json", "w") as json_file:
+    with open(YEAR_DIR / "bible_readings.json", "w") as json_file:
         json.dump(bible_readings, json_file, indent=4)
+    create_bible_audio_playlist(YEAR_DIR, bible_book_metadata, bible_readings,
+                                "bible_playlists")
     create_rtf_and_pdf(YEAR,
                        bible_readings,
                        "bible_readings",

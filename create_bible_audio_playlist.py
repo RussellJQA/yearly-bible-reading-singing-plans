@@ -1,0 +1,107 @@
+import os
+from pathlib import Path
+import re
+from zipfile import ZipFile
+
+# For each day of the plan, create .m3u playlists to play the
+# corresponding .mp3 files from OT and NT CDs of KJV Bible audio from
+# Talking Bibles International (https://www.talkingbibles.org/)
+#
+"""
+The Old Testament
+KJV
+MP3-CD
+Genesis - Job
+0096003-OT-79
+Copyright Public Domain
+King James Version
+CD #1 and #2
+Talking Bibles International
+Escondido, CA 92033
+"""
+#
+"""
+The New Testament...
+...
+0096-03-NT-70
+Public Domain
+...
+"""
+
+
+def get_bible_chapter_mp3_path(ot_or_nt, book_num_and_name, chapter):
+    folder = Path(
+        "/storage/emulated/0/Music/TBAudio") / ot_or_nt / book_num_and_name
+    in_ot = ot_or_nt == "ot"
+    # Zero-pad
+    chapter = f"{int(chapter):03}" if in_ot else f"{int(chapter):02}"
+    fn = f"{book_num_and_name}_{chapter}.mp3"
+    return (folder / fn)
+
+
+# NOTE: Commented with "# # " below, because when I used a triple-quoted
+# string, flake8 complained with 19 "invalid escape sequence" messages.
+# # Example MP3 playlist (03-02-Tu.m3u):
+# # #EXTM3U
+# # \storage\emulated\0\Music\TBAudio\ot\04_numbers\04_numbers_004.mp3
+# # \storage\emulated\0\Music\TBAudio\ot\04_numbers\04_numbers_005.mp3
+# # \storage\emulated\0\Music\TBAudio\nt\02_mark\02_mark_15.mp3
+# # \storage\emulated\0\Music\TBAudio\ot\19_psalms\19_psalms_030.mp3
+
+
+def create_bible_audio_playlist(year_dir, bible_book_metadata, readings,
+                                readings_fn):
+
+    with ZipFile(year_dir / f"{readings_fn}.zip", "w") as playlists_file:
+
+        M3U_DIR = year_dir / readings_fn
+        os.makedirs(M3U_DIR, exist_ok=True)
+
+        for date, days_readings in readings.items():
+
+            m3u_fn = M3U_DIR / f"{date.replace(' ', '-')}.m3u"
+            with open(m3u_fn, "w") as m3u_file:
+                m3u_file.write("#EXTM3U\n")
+
+                for reading in days_readings:
+                    book = reading[0]
+                    book_num = bible_book_metadata[book]["book_num"]
+                    if int(book_num) < 40:
+                        ot_or_nt = "ot"
+                    else:
+                        ot_or_nt = "nt"
+                        book_num = f"{(int(book_num) - 39):02}"
+                    book_num_and_name = (book_num +
+                                         f"_{book.lower().replace(' ', '-')}")
+                    chapters_and_verses = list(str(reading[1]).split(", "))
+                    for chapter_and_verse in chapters_and_verses:
+                        # Use a regex to remove verse references
+                        #   30:1-7a -> 30
+                        #   30:7b-12 -> 30
+                        #   139:11-16a -> 139
+                        #   139:16b-24 -> 139
+                        # "[ab]?"" means 0 or 1 "a" or "b"
+                        pattern = r"(.*)(:\d{1,3}[ab]?-\d{1,3}[ab]?)"
+                        match = re.search(pattern, chapter_and_verse)
+                        chapter = match.group(
+                            1) if match else chapter_and_verse
+
+                        # Genesis 1-2 -> genesis_1, genesis_2
+                        pattern = r"(\d{1,3})-(\d{1,3})"
+                        match = re.search(pattern, chapter)
+                        if match:
+                            chapter1 = f"{match.group(1)}"
+                            path = get_bible_chapter_mp3_path(
+                                ot_or_nt, book_num_and_name, chapter1)
+                            m3u_file.write(f"{path}\n")
+                            chapter2 = f"{match.group(2)}"
+                            path = get_bible_chapter_mp3_path(
+                                ot_or_nt, book_num_and_name, chapter2)
+                            m3u_file.write(f"{path}\n")
+                        else:
+                            path = get_bible_chapter_mp3_path(
+                                ot_or_nt, book_num_and_name, chapter)
+                            m3u_file.write(f"{path}\n")
+
+            m3u_basename_with_ext = f"{m3u_fn.stem}.m3u"
+            playlists_file.write(m3u_fn, arcname=m3u_basename_with_ext)
