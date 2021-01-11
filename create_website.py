@@ -47,17 +47,17 @@ def create_website(year):
         "Yearly Bible Reading/Singing Plans. Starting with 2020, "
         "has downloadable PDF plan(s) for reading thru the Bible,"
         " and singing thru the Psalms, in 1 year.")
-    # markdown_to_html(
-    #     "meter", "meter", "Meter",
-    #     "Info about meter -- patterns of syllables used in English "
-    #     "poetry and song. Metrical Psalms are often written in Common "
-    #     "Meter, Short Meter, or Long Meter.")
-    # markdown_to_html(
-    #     "psalms_of_david_in_metre", "psalms_of_david_in_metre",
-    #     "The Psalms of David in Metre",
-    #     "Info about printed and online editions -- and mobile apps -- "
-    #     "of 'The Psalms of David in Metre', a.k.a 'The 1650 Scottish "
-    #     "Psalter' and 'Scottish Psalmody'.")
+    markdown_to_html(
+        "meter", "meter", "Meter",
+        "Info about meter -- patterns of syllables used in English "
+        "poetry and song. Metrical Psalms are often written in Common "
+        "Meter, Short Meter, or Long Meter.")
+    markdown_to_html(
+        "psalms_of_david_in_metre", "psalms_of_david_in_metre",
+        "The Psalms of David in Metre",
+        "Info about printed and online editions -- and mobile apps -- "
+        "of 'The Psalms of David in Metre', a.k.a 'The 1650 Scottish "
+        "Psalter' and 'Scottish Psalmody'.")
 
 
 if __name__ == "__main__":
