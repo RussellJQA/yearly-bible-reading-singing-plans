@@ -20,9 +20,7 @@ def get_ot_wo_das_ho_readings(year):
 
     ot_wo_das_ho_readings = {}
 
-    with open(
-            LIBRARY_DIR / "ot_wo_david_and_solomon_hebrew_order_chapters.json",
-            "r") as json_file:
+    with open(LIBRARY_DIR / "ot_wo_das_ho_readings.json", "r") as json_file:
         selections = json.load(json_file)
 
     reading_num = 1

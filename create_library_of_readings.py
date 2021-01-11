@@ -50,9 +50,8 @@ def create_library_of_readings(bible_book_metadata):
 
     create_chapters_json(nt, library_dir / "nt_chapters.json")
     create_chapters_json(solomon, library_dir / "solomon_chapters.json")
-    create_chapters_json(
-        ot_wo_das_hebrew_order,
-        library_dir / "ot_wo_david_and_solomon_hebrew_order_chapters.json")
+    create_chapters_json(ot_wo_das_hebrew_order,
+                         library_dir / "ot_wo_das_ho_readings.json")
 
     readings_per_chapter = {}
     fpcr_psalm_readings = {}
