@@ -49,9 +49,9 @@ def get_ot_wo_das_ho_readings(year):
 
                 reading_num += 1
 
-        month_and_day_of_month = f"{date.strftime('%m-%d')}"
-        date_and_day = f"{month_and_day_of_month} {day_of_week}"
-        ot_wo_das_ho_readings[date_and_day] = days_readings
+                month_and_day_of_month = f"{date.strftime('%m-%d')}"
+                date_and_day = f"{month_and_day_of_month} {day_of_week}"
+                ot_wo_das_ho_readings[date_and_day] = days_readings
 
     # There are only 728 readings in ot_wo_das_ho_readings,
     #   but 2*365=730 are needed for 2021.
@@ -85,9 +85,9 @@ def get_nt_readings(year):
                 days_readings.append(reading)
                 reading_num += 1
 
-        month_and_day_of_month = f"{date.strftime('%m-%d')}"
-        date_and_day = f"{month_and_day_of_month} {day_of_week}"
-        nt_readings[date_and_day] = days_readings
+                month_and_day_of_month = f"{date.strftime('%m-%d')}"
+                date_and_day = f"{month_and_day_of_month} {day_of_week}"
+                nt_readings[date_and_day] = days_readings
 
     # Since 2021 starts on a Friday, it has 261 (52 * 5 + 1) weekdays.
     # But there are only 260 chapters in the New Testament.
@@ -120,9 +120,9 @@ def get_solomon_readings(year):
                 days_readings.append(reading)
                 reading_num += 1
 
-        month_and_day_of_month = f"{date.strftime('%m-%d')}"
-        date_and_day = f"{month_and_day_of_month} {day_of_week}"
-        solomon_readings[date_and_day] = days_readings
+                month_and_day_of_month = f"{date.strftime('%m-%d')}"
+                date_and_day = f"{month_and_day_of_month} {day_of_week}"
+                solomon_readings[date_and_day] = days_readings
 
     # Since 2021 starts on a Friday, it has 52 Saturdays.
     # But there are only 51 chapters in the Writings of Solomon.
@@ -155,9 +155,9 @@ def get_fpcr_psalm_readings(year):
                 days_readings.append(reading)
                 reading_num += 1
 
-        month_and_day_of_month = f"{date.strftime('%m-%d')}"
-        date_and_day = f"{month_and_day_of_month} {day_of_week}"
-        fpcr_psalm_readings[date_and_day] = days_readings
+                month_and_day_of_month = f"{date.strftime('%m-%d')}"
+                date_and_day = f"{month_and_day_of_month} {day_of_week}"
+                fpcr_psalm_readings[date_and_day] = days_readings
 
     # Since 2021 starts on a Friday, it has 313 (52 * 6 + 1) days
     #   which are not Lord's Days (Sundays).
