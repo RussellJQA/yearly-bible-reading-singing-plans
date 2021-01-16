@@ -182,7 +182,7 @@ def create_plan_2021():
     create_library_of_readings(bible_book_metadata)
 
     ot_wo_das_ho_readings = get_ot_wo_das_ho_readings(YEAR)
-    create_bible_audio_playlist(YEAR_DIR, bible_book_metadata,
+    create_bible_audio_playlist(YEAR, bible_book_metadata,
                                 ot_wo_das_ho_readings,
                                 "ot_wo_das_ho_playlists")
     create_rtf_and_pdf(
@@ -191,20 +191,20 @@ def create_plan_2021():
         "Solomon), in Hebrew OT order")
 
     nt_readings = get_nt_readings(YEAR)
-    create_bible_audio_playlist(YEAR_DIR, bible_book_metadata, nt_readings,
+    create_bible_audio_playlist(YEAR, bible_book_metadata, nt_readings,
                                 "nt_playlists")
     create_rtf_and_pdf(YEAR, nt_readings, "nt_readings",
                        "Weekday New Testament Reading")
 
     solomon_readings = get_solomon_readings(YEAR)
-    create_bible_audio_playlist(YEAR_DIR, bible_book_metadata,
-                                solomon_readings, "solomon_playlists")
+    create_bible_audio_playlist(YEAR, bible_book_metadata, solomon_readings,
+                                "solomon_playlists")
     create_rtf_and_pdf(YEAR, solomon_readings, "solomon_readings",
                        "Reading the Writings of Solomon on Saturdays")
 
     fpcr_psalm_readings = get_fpcr_psalm_readings(YEAR)
-    create_bible_audio_playlist(YEAR_DIR, bible_book_metadata,
-                                fpcr_psalm_readings, "fpcr_psalm_playlists")
+    create_bible_audio_playlist(YEAR, bible_book_metadata, fpcr_psalm_readings,
+                                "fpcr_psalm_playlists")
     create_rtf_and_pdf(YEAR, fpcr_psalm_readings, "fpcr_psalm_readings",
                        "Reading and Singing Psalm Selections Six Days a Week")
 
@@ -215,7 +215,7 @@ def create_plan_2021():
     add_to_bible_readings(bible_readings, fpcr_psalm_readings)
     with open(YEAR_DIR / "bible_readings.json", "w") as json_file:
         json.dump(bible_readings, json_file, indent=4)
-    create_bible_audio_playlist(YEAR_DIR, bible_book_metadata, bible_readings,
+    create_bible_audio_playlist(YEAR, bible_book_metadata, bible_readings,
                                 "bible_playlists")
     create_rtf_and_pdf(YEAR,
                        bible_readings,

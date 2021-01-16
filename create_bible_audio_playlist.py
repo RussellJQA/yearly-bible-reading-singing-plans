@@ -1,3 +1,4 @@
+import datetime
 import os
 from pathlib import Path
 import re
@@ -30,8 +31,7 @@ Public Domain
 
 
 def get_bible_chapter_mp3_path(ot_or_nt, book_num_and_name, chapter):
-    folder = Path(
-        "/storage/emulated/0/Music/TBAudio") / ot_or_nt / book_num_and_name
+    folder = Path(ot_or_nt) / book_num_and_name
     in_ot = ot_or_nt == "ot"
     # Zero-pad
     chapter = f"{int(chapter):03}" if in_ot else f"{int(chapter):02}"
@@ -41,27 +41,46 @@ def get_bible_chapter_mp3_path(ot_or_nt, book_num_and_name, chapter):
 
 # NOTE: Commented with "# # " below, because when I used a triple-quoted
 # string, flake8 complained with 19 "invalid escape sequence" messages.
-# # Example MP3 playlist (03-02-Tu.m3u):
+# # For more info, see: https://en.wikipedia.org/wiki/M3U#Extended_M3U
+# # # Example MP3 playlist (03-02-Tu.m3u):
 # # #EXTM3U
+# # #PLAYLIST:Tuesday, 02 March 2021
+# # #EXTALB: KJV Bible
+# # #EXTART: Talking Bibles International
+# # #EXTGENRE:Speech
+# # #EXTINF:0,Numbers 4
 # # \storage\emulated\0\Music\TBAudio\ot\04_numbers\04_numbers_004.mp3
+# # #EXTINF:0,Numbers 5
 # # \storage\emulated\0\Music\TBAudio\ot\04_numbers\04_numbers_005.mp3
+# # #EXTINF:0,Mark 15
 # # \storage\emulated\0\Music\TBAudio\nt\02_mark\02_mark_15.mp3
+# # #EXTINF:0,Psalm 30
 # # \storage\emulated\0\Music\TBAudio\ot\19_psalms\19_psalms_030.mp3
 
 
-def create_bible_audio_playlist(year_dir, bible_book_metadata, readings,
+def create_bible_audio_playlist(year, bible_book_metadata, readings,
                                 readings_fn):
 
-    with ZipFile(year_dir / f"{readings_fn}.zip", "w") as playlists_file:
+    SCRIPT_DIR = Path(__file__).resolve().parent
+    YEAR_DIR = SCRIPT_DIR / str(year)
 
-        M3U_DIR = year_dir / readings_fn
+    with ZipFile(YEAR_DIR / f"{readings_fn}.zip", "w") as playlists_file:
+
+        M3U_DIR = YEAR_DIR / readings_fn
         os.makedirs(M3U_DIR, exist_ok=True)
 
         for date, days_readings in readings.items():
 
+            long_date = datetime.date(int(year), int(date[0:2]),
+                                      int(date[3:5])).strftime("%A, %d %B %Y")
+
             m3u_fn = M3U_DIR / f"{date.replace(' ', '-')}.m3u"
             with open(m3u_fn, "w") as m3u_file:
                 m3u_file.write("#EXTM3U\n")
+                m3u_file.write(f"#PLAYLIST:{long_date}\n")
+                m3u_file.write("#EXTALB: KJV Bible\n")
+                m3u_file.write("#EXTART: Talking Bibles International\n")
+                m3u_file.write("#EXTGENRE:Speech\n")
 
                 for reading in days_readings:
                     book = reading[0]
@@ -93,14 +112,17 @@ def create_bible_audio_playlist(year_dir, bible_book_metadata, readings,
                             chapter1 = f"{match.group(1)}"
                             path = get_bible_chapter_mp3_path(
                                 ot_or_nt, book_num_and_name, chapter1)
+                            m3u_file.write(f"#EXTINF:0,{book} {chapter1}\n")
                             m3u_file.write(f"{path}\n")
                             chapter2 = f"{match.group(2)}"
                             path = get_bible_chapter_mp3_path(
                                 ot_or_nt, book_num_and_name, chapter2)
+                            m3u_file.write(f"#EXTINF:0,{book} {chapter2}\n")
                             m3u_file.write(f"{path}\n")
                         else:
                             path = get_bible_chapter_mp3_path(
                                 ot_or_nt, book_num_and_name, chapter)
+                            m3u_file.write(f"#EXTINF:0,{book} {chapter}\n")
                             m3u_file.write(f"{path}\n")
 
             m3u_basename_with_ext = f"{m3u_fn.stem}.m3u"
