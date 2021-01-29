@@ -1,5 +1,4 @@
 import datetime
-import os
 from pathlib import Path
 import re
 from zipfile import ZipFile
@@ -67,7 +66,7 @@ def create_bible_audio_playlist(year, bible_book_metadata, readings,
     with ZipFile(YEAR_DIR / f"{readings_fn}.zip", "w") as playlists_file:
 
         M3U_DIR = YEAR_DIR / readings_fn
-        os.makedirs(M3U_DIR, exist_ok=True)
+        M3U_DIR.mkdir(exist_ok=True)
 
         for date, days_readings in readings.items():
 

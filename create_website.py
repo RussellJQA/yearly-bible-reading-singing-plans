@@ -1,4 +1,3 @@
-import os
 from pathlib import Path
 import string
 
@@ -41,7 +40,7 @@ def markdown_to_html(md_basename, html_basename, title, description):
 
 
 def create_website(year):
-    os.makedirs(GITHUB_PAGES_DIR, exist_ok=True)
+    GITHUB_PAGES_DIR.mkdir(exist_ok=True)
     markdown_to_html(
         "README", "index", "Yearly Bible Reading/Singing Plans",
         "Yearly Bible Reading/Singing Plans. Starting with 2020, "
