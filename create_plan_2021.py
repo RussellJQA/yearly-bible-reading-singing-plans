@@ -42,8 +42,7 @@ def get_ot_wo_das_ho_readings(year):
 
                 # If next reading is in same book, then merge the 2 readings
                 if previous_book == current_book:
-                    days_readings[-1][
-                        1] = f"{days_readings[-1][1]}-{reading[1]}"
+                    days_readings[-1][1] = f"{days_readings[-1][1]}-{reading[1]}"
                 else:
                     days_readings.append(reading)
 
@@ -78,16 +77,17 @@ def get_nt_readings(year):
 
         date = THIS_YEAR_START + datetime.timedelta(days=days)
         day_of_week = date.strftime("%a")[:2].replace("Su", "LD")
-        days_readings = []
+        if (
+            day_of_week not in ("LD", "Sa")
+            and (reading := selections.get(str(reading_num), "")) != ""
+        ):
+            days_readings = [reading]
 
-        if day_of_week not in ("LD", "Sa"):  # if Monday to Friday
-            if (reading := selections.get(str(reading_num), "")) != "":
-                days_readings.append(reading)
-                reading_num += 1
+            reading_num += 1
 
-                month_and_day_of_month = f"{date.strftime('%m-%d')}"
-                date_and_day = f"{month_and_day_of_month} {day_of_week}"
-                nt_readings[date_and_day] = days_readings
+            month_and_day_of_month = f"{date.strftime('%m-%d')}"
+            date_and_day = f"{month_and_day_of_month} {day_of_week}"
+            nt_readings[date_and_day] = days_readings
 
     # Since 2021 starts on a Friday, it has 261 (52 * 5 + 1) weekdays.
     # But there are only 260 chapters in the New Testament.
@@ -113,16 +113,17 @@ def get_solomon_readings(year):
 
         date = THIS_YEAR_START + datetime.timedelta(days=days)
         day_of_week = date.strftime("%a")[:2].replace("Su", "LD")
-        days_readings = []
+        if (
+            day_of_week == "Sa"
+            and (reading := selections.get(str(reading_num), "")) != ""
+        ):
+            days_readings = [reading]
 
-        if day_of_week == "Sa":  # if Saturday
-            if (reading := selections.get(str(reading_num), "")) != "":
-                days_readings.append(reading)
-                reading_num += 1
+            reading_num += 1
 
-                month_and_day_of_month = f"{date.strftime('%m-%d')}"
-                date_and_day = f"{month_and_day_of_month} {day_of_week}"
-                solomon_readings[date_and_day] = days_readings
+            month_and_day_of_month = f"{date.strftime('%m-%d')}"
+            date_and_day = f"{month_and_day_of_month} {day_of_week}"
+            solomon_readings[date_and_day] = days_readings
 
     # Since 2021 starts on a Friday, it has 52 Saturdays.
     # But there are only 51 chapters in the Writings of Solomon.
@@ -148,16 +149,17 @@ def get_fpcr_psalm_readings(year):
 
         date = THIS_YEAR_START + datetime.timedelta(days=days)
         day_of_week = date.strftime("%a")[:2].replace("Su", "LD")
-        days_readings = []
+        if (
+            day_of_week != "LD"
+            and (reading := selections.get(str(reading_num), "")) != ""
+        ):
+            days_readings = [reading]
 
-        if day_of_week != "LD":  # if not a Lord's Day
-            if (reading := selections.get(str(reading_num), "")) != "":
-                days_readings.append(reading)
-                reading_num += 1
+            reading_num += 1
 
-                month_and_day_of_month = f"{date.strftime('%m-%d')}"
-                date_and_day = f"{month_and_day_of_month} {day_of_week}"
-                fpcr_psalm_readings[date_and_day] = days_readings
+            month_and_day_of_month = f"{date.strftime('%m-%d')}"
+            date_and_day = f"{month_and_day_of_month} {day_of_week}"
+            fpcr_psalm_readings[date_and_day] = days_readings
 
     # Since 2021 starts on a Friday, it has 313 (52 * 6 + 1) days
     #   which are not Lord's Days (Sundays).
@@ -165,9 +167,7 @@ def get_fpcr_psalm_readings(year):
     #   Psalter.
     # So for Friday, December 31, 2021, add some Psalm selections
     #   quoted or alluded to in Hebrews 1 (the NT reading for the day).
-    fpcr_psalm_readings["12-31 Fr"] = [[
-        "Psalms", "45:1-7, 102:23-28, 104:1-9"
-    ]]
+    fpcr_psalm_readings["12-31 Fr"] = [["Psalms", "45:1-7, 102:23-28, 104:1-9"]]
 
     with open(YEAR_DIR / "fpcr_psalm_readings.json", "w") as json_file:
         json.dump(fpcr_psalm_readings, json_file, indent=4)
@@ -182,31 +182,44 @@ def create_plan_2021():
     create_library_of_readings(bible_book_metadata)
 
     ot_wo_das_ho_readings = get_ot_wo_das_ho_readings(YEAR)
-    create_bible_audio_playlist(YEAR, bible_book_metadata,
-                                ot_wo_das_ho_readings,
-                                "ot_wo_das_ho_playlists")
+    create_bible_audio_playlist(
+        YEAR, bible_book_metadata, ot_wo_das_ho_readings, "ot_wo_das_ho_playlists"
+    )
     create_rtf_and_pdf(
-        YEAR, ot_wo_das_ho_readings, "ot_wo_das_ho_readings",
+        YEAR,
+        ot_wo_das_ho_readings,
+        "ot_wo_das_ho_readings",
         "Reading the Old Testament (without the Writings of David and "
-        "Solomon), in Hebrew OT order")
+        "Solomon), in Hebrew OT order",
+    )
 
     nt_readings = get_nt_readings(YEAR)
-    create_bible_audio_playlist(YEAR, bible_book_metadata, nt_readings,
-                                "nt_playlists")
-    create_rtf_and_pdf(YEAR, nt_readings, "nt_readings",
-                       "Weekday New Testament Reading")
+    create_bible_audio_playlist(YEAR, bible_book_metadata, nt_readings, "nt_playlists")
+    create_rtf_and_pdf(
+        YEAR, nt_readings, "nt_readings", "Weekday New Testament Reading"
+    )
 
     solomon_readings = get_solomon_readings(YEAR)
-    create_bible_audio_playlist(YEAR, bible_book_metadata, solomon_readings,
-                                "solomon_playlists")
-    create_rtf_and_pdf(YEAR, solomon_readings, "solomon_readings",
-                       "Reading the Writings of Solomon on Saturdays")
+    create_bible_audio_playlist(
+        YEAR, bible_book_metadata, solomon_readings, "solomon_playlists"
+    )
+    create_rtf_and_pdf(
+        YEAR,
+        solomon_readings,
+        "solomon_readings",
+        "Reading the Writings of Solomon on Saturdays",
+    )
 
     fpcr_psalm_readings = get_fpcr_psalm_readings(YEAR)
-    create_bible_audio_playlist(YEAR, bible_book_metadata, fpcr_psalm_readings,
-                                "fpcr_psalm_playlists")
-    create_rtf_and_pdf(YEAR, fpcr_psalm_readings, "fpcr_psalm_readings",
-                       "Reading and Singing Psalm Selections Six Days a Week")
+    create_bible_audio_playlist(
+        YEAR, bible_book_metadata, fpcr_psalm_readings, "fpcr_psalm_playlists"
+    )
+    create_rtf_and_pdf(
+        YEAR,
+        fpcr_psalm_readings,
+        "fpcr_psalm_readings",
+        "Reading and Singing Psalm Selections Six Days a Week",
+    )
 
     bible_readings = {}
     add_to_bible_readings(bible_readings, ot_wo_das_ho_readings)
@@ -215,13 +228,16 @@ def create_plan_2021():
     add_to_bible_readings(bible_readings, fpcr_psalm_readings)
     with open(YEAR_DIR / "bible_readings.json", "w") as json_file:
         json.dump(bible_readings, json_file, indent=4)
-    create_bible_audio_playlist(YEAR, bible_book_metadata, bible_readings,
-                                "bible_playlists")
-    create_rtf_and_pdf(YEAR,
-                       bible_readings,
-                       "bible_readings",
-                       "Daily Bible Reading and Singing",
-                       abbrev_books=True)
+    create_bible_audio_playlist(
+        YEAR, bible_book_metadata, bible_readings, "bible_playlists"
+    )
+    create_rtf_and_pdf(
+        YEAR,
+        bible_readings,
+        "bible_readings",
+        "Daily Bible Reading and Singing",
+        abbrev_books=True,
+    )
 
 
 if __name__ == "__main__":

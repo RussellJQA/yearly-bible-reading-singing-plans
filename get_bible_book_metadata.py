@@ -2,6 +2,7 @@ import json
 from openpyxl import load_workbook
 import os
 from pathlib import Path
+
 """
 columns in bible_book_metadata.csv:
 0: book_num = 0-padded book number (01..66) in the Bible
@@ -39,9 +40,11 @@ def get_bible_book_metadata():
         headers = ""
         for book_index, book_row in enumerate(worksheet.values):
             if book_index:
-                book_data = {}
-                for column_index, column in enumerate(book_row):
-                    book_data[headers[column_index]] = str(column)
+                book_data = {
+                    headers[column_index]: str(column)
+                    for column_index, column in enumerate(book_row)
+                }
+
                 book_name = book_data.pop("book_name")
                 bible_book_metadata[book_name] = book_data
             else:

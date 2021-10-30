@@ -30,12 +30,24 @@ Public Domain
 
 
 def get_bible_chapter_mp3_path(ot_or_nt, book_num_and_name, chapter):
+    if book_num_and_name == "22_song-of-solomon":
+        book_num_and_name = "22_songofsolomon"
     folder = Path(ot_or_nt) / book_num_and_name
     in_ot = ot_or_nt == "ot"
-    # Zero-pad
-    chapter = f"{int(chapter):03}" if in_ot else f"{int(chapter):02}"
-    fn = f"{book_num_and_name}_{chapter}.mp3"
-    return (folder / fn)
+    # Don't include chapter numbers for books with only 1 chapter
+    if book_num_and_name in (
+        "31_obadiah",
+        "18_philemon",
+        "24_2-john",
+        "25_3-john",
+        "26_jude",
+    ):
+        fn = f"{book_num_and_name}.mp3"
+    else:
+        # Zero-pad chapter numbers
+        chapter = f"{int(chapter):03}" if in_ot else f"{int(chapter):02}"
+        fn = f"{book_num_and_name}_{chapter}.mp3"
+    return folder / fn
 
 
 # NOTE: Commented with "# # " below, because when I used a triple-quoted
@@ -57,8 +69,7 @@ def get_bible_chapter_mp3_path(ot_or_nt, book_num_and_name, chapter):
 # # \storage\emulated\0\Music\TBAudio\ot\19_psalms\19_psalms_030.mp3
 
 
-def create_bible_audio_playlist(year, bible_book_metadata, readings,
-                                readings_fn):
+def create_bible_audio_playlist(year, bible_book_metadata, readings, readings_fn):
 
     SCRIPT_DIR = Path(__file__).resolve().parent
     YEAR_DIR = SCRIPT_DIR / str(year)
@@ -70,8 +81,9 @@ def create_bible_audio_playlist(year, bible_book_metadata, readings,
 
         for date, days_readings in readings.items():
 
-            long_date = datetime.date(int(year), int(date[0:2]),
-                                      int(date[3:5])).strftime("%A, %d %B %Y")
+            long_date = datetime.date(
+                int(year), int(date[0:2]), int(date[3:5])
+            ).strftime("%A, %d %B %Y")
 
             m3u_fn = M3U_DIR / f"{date.replace(' ', '-')}.m3u"
             with open(m3u_fn, "w") as m3u_file:
@@ -89,40 +101,38 @@ def create_bible_audio_playlist(year, bible_book_metadata, readings,
                     else:
                         ot_or_nt = "nt"
                         book_num = f"{(int(book_num) - 39):02}"
-                    book_num_and_name = (book_num +
-                                         f"_{book.lower().replace(' ', '-')}")
+                    book_num_and_name = book_num + f"_{book.lower().replace(' ', '-')}"
                     chapters_and_verses = list(str(reading[1]).split(", "))
+                    # Use a regex to remove verse references
+                    #   30:1-7a -> 30
+                    #   30:7b-12 -> 30
+                    #   139:11-16a -> 139
+                    #   139:16b-24 -> 139
+                    # "[ab]?"" means 0 or 1 "a" or "b"
+                    pattern = r"(.*)(:\d{1,3}[ab]?-\d{1,3}[ab]?)"
                     for chapter_and_verse in chapters_and_verses:
-                        # Use a regex to remove verse references
-                        #   30:1-7a -> 30
-                        #   30:7b-12 -> 30
-                        #   139:11-16a -> 139
-                        #   139:16b-24 -> 139
-                        # "[ab]?"" means 0 or 1 "a" or "b"
-                        pattern = r"(.*)(:\d{1,3}[ab]?-\d{1,3}[ab]?)"
                         match = re.search(pattern, chapter_and_verse)
-                        chapter = match.group(
-                            1) if match else chapter_and_verse
+                        chapter = match.group(1) if match else chapter_and_verse
 
-                        # Genesis 1-2 -> genesis_1, genesis_2
-                        pattern = r"(\d{1,3})-(\d{1,3})"
-                        match = re.search(pattern, chapter)
+                        match = re.search(r"(\d{1,3})-(\d{1,3})", chapter)
                         if match:
                             chapter1 = f"{match.group(1)}"
                             path = get_bible_chapter_mp3_path(
-                                ot_or_nt, book_num_and_name, chapter1)
+                                ot_or_nt, book_num_and_name, chapter1
+                            )
                             m3u_file.write(f"#EXTINF:0,{book} {chapter1}\n")
                             m3u_file.write(f"{path}\n")
                             chapter2 = f"{match.group(2)}"
                             path = get_bible_chapter_mp3_path(
-                                ot_or_nt, book_num_and_name, chapter2)
+                                ot_or_nt, book_num_and_name, chapter2
+                            )
                             m3u_file.write(f"#EXTINF:0,{book} {chapter2}\n")
-                            m3u_file.write(f"{path}\n")
                         else:
                             path = get_bible_chapter_mp3_path(
-                                ot_or_nt, book_num_and_name, chapter)
+                                ot_or_nt, book_num_and_name, chapter
+                            )
                             m3u_file.write(f"#EXTINF:0,{book} {chapter}\n")
-                            m3u_file.write(f"{path}\n")
+                        m3u_file.write(f"{path}\n")
 
             m3u_basename_with_ext = f"{m3u_fn.stem}.m3u"
             playlists_file.write(m3u_fn, arcname=m3u_basename_with_ext)
