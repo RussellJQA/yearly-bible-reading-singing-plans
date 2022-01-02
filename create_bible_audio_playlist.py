@@ -82,7 +82,7 @@ def create_bible_audio_playlist(year, bible_book_metadata, readings, readings_fn
         for date, days_readings in readings.items():
 
             long_date = datetime.date(
-                int(year), int(date[0:2]), int(date[3:5])
+                int(year), int(date[:2]), int(date[3:5])
             ).strftime("%A, %d %B %Y")
 
             m3u_fn = M3U_DIR / f"{date.replace(' ', '-')}.m3u"
@@ -112,27 +112,21 @@ def create_bible_audio_playlist(year, bible_book_metadata, readings, readings_fn
                     pattern = r"(.*)(:\d{1,3}[ab]?-\d{1,3}[ab]?)"
                     for chapter_and_verse in chapters_and_verses:
                         match = re.search(pattern, chapter_and_verse)
-                        chapter = match.group(1) if match else chapter_and_verse
+                        chapters = match.group(1) if match else chapter_and_verse
 
-                        match = re.search(r"(\d{1,3})-(\d{1,3})", chapter)
+                        match = re.search(r"(\d{1,3})-(\d{1,3})", chapters)
                         if match:
-                            chapter1 = f"{match.group(1)}"
-                            path = get_bible_chapter_mp3_path(
-                                ot_or_nt, book_num_and_name, chapter1
-                            )
-                            m3u_file.write(f"#EXTINF:0,{book} {chapter1}\n")
-                            m3u_file.write(f"{path}\n")
-                            chapter2 = f"{match.group(2)}"
-                            path = get_bible_chapter_mp3_path(
-                                ot_or_nt, book_num_and_name, chapter2
-                            )
-                            m3u_file.write(f"#EXTINF:0,{book} {chapter2}\n")
+                            chapter_first = int(match.group(1))
+                            chapter_last = int(match.group(2))
                         else:
+                            chapter_first = chapter_last = int(chapters)
+
+                        for chapter in range(chapter_first, chapter_last + 1):
                             path = get_bible_chapter_mp3_path(
                                 ot_or_nt, book_num_and_name, chapter
                             )
                             m3u_file.write(f"#EXTINF:0,{book} {chapter}\n")
-                        m3u_file.write(f"{path}\n")
+                            m3u_file.write(f"{path}\n")
 
             m3u_basename_with_ext = f"{m3u_fn.stem}.m3u"
             playlists_file.write(m3u_fn, arcname=m3u_basename_with_ext)

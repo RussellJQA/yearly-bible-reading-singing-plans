@@ -25,6 +25,7 @@ def create_library_of_readings(bible_book_metadata):
     # Book lists for various readings
     ot = {}  # NT
     solomon = {}  # Writings of "Solomon" (Proverbs, Ecclesiastes, SoS)
+    ot_wo_psalms = {}  # OT w/o Psalms
     ot_wo_das_hebrew_order = {}  # Hebrew-ordered OT w/o David & Solomon
     nt = {}  # NT
 
@@ -35,7 +36,9 @@ def create_library_of_readings(bible_book_metadata):
             ot[book_name] = book_data
             if book_data["author"] == "Solomon":
                 solomon[book_name] = book_data
+                ot_wo_psalms[book_name] = book_data
             elif book_data["author"] != "David":  # book_name not Psalms
+                ot_wo_psalms[book_name] = book_data
                 ot_wo_das[book_name] = book_data
                 hebrew_ot_order[book_data["hebrew_ot_num"]] = book_name
         else:
@@ -45,13 +48,19 @@ def create_library_of_readings(bible_book_metadata):
         book_name = hebrew_ot_order[hebrew_ot_num]
         ot_wo_das_hebrew_order[book_name] = bible_book_metadata[book_name]
 
-    # The following file isn't used for the 2021 plan
+    # The following file isn't used for the 2021 or 2022 plans
     create_chapters_json(ot, library_dir / "ot_chapters.json")
 
     create_chapters_json(nt, library_dir / "nt_chapters.json")
+
+    # The following file is used by the 2022 plan
+    create_chapters_json(ot_wo_psalms, library_dir / "ot_wo_psalms.json")
+
+    # The following 2 files are used by the 2021 plan
     create_chapters_json(solomon, library_dir / "solomon_chapters.json")
-    create_chapters_json(ot_wo_das_hebrew_order,
-                         library_dir / "ot_wo_das_ho_readings.json")
+    create_chapters_json(
+        ot_wo_das_hebrew_order, library_dir / "ot_wo_das_ho_readings.json"
+    )
 
     readings_per_chapter = {}
     fpcr_psalm_readings = {}
@@ -59,14 +68,13 @@ def create_library_of_readings(bible_book_metadata):
         for reading_count, reading in enumerate(csv.reader(csv_file), 1):
             chapter_and_verses = reading[0]
             fpcr_psalm_readings[reading_count] = ["Psalms", chapter_and_verses]
-            chapter = chapter_and_verses[:chapter_and_verses.find(":")]
-            readings_per_chapter[chapter] = readings_per_chapter.get(
-                chapter, 0) + 1
+            chapter = chapter_and_verses[: chapter_and_verses.find(":")]
+            readings_per_chapter[chapter] = readings_per_chapter.get(chapter, 0) + 1
 
     # For any reading of an entire Psalm (chapter), eliminate the verse numbers
     for reading in fpcr_psalm_readings.values():
         chapter_and_verses = reading[1]
-        chapter = chapter_and_verses[:chapter_and_verses.find(":")]
+        chapter = chapter_and_verses[: chapter_and_verses.find(":")]
         if readings_per_chapter[chapter] == 1:
             reading[1] = chapter
 
